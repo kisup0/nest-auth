@@ -1,0 +1,40 @@
+{
+  "name": "@kisup/nest-auth",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kisup0/nest-auth.git"
+  },
+  "author": "kisup",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kisup0/nest-auth/issues"
+  },
+  "homepage": "https://github.com/kisup0/nest-auth#readme",
+  "description": "",
+  "dependencies": {
+    "@nestjs/common": "^11.0.11",
+    "@nestjs/core": "11.0.11",
+    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/swagger": "^11.0.6"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.9",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "eslint": "8.57.1",
+    "eslint-config-prettier": "10.0.2",
+    "eslint-plugin-import": "2.31.0",
+    "prettier": "3.5.3",
+    "typescript": "^5.8.2"
+  }
+}
