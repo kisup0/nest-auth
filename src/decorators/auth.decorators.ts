@@ -1,14 +1,12 @@
-import { Inject } from "@nestjs/common";
-import { AUTH_SERVICE, NON_BLOCKING } from "../auth.constants";
+import { createParamDecorator, ExecutionContext, Inject, SetMetadata } from "@nestjs/common";
+import { AUTH_SERVICE, NON_BLOCKING, REFRESH_TOKEN_KEY } from "../auth.constants";
 import { AuthControllerOptions } from "../interfaces/auth-service.interface";
 
 function setAuthMetadata(
   target: any,
   options: AuthControllerOptions,
 ): void {
-  for (const name in options) {
-    Reflect.defineMetadata(NON_BLOCKING, options[name].nonBlock, target);
-  }
+  Reflect.defineMetadata(NON_BLOCKING, options.nonBlock, target);
 }
 
 export const Auth = (options: AuthControllerOptions): MethodDecorator & ClassDecorator => {
@@ -26,5 +24,21 @@ export const Auth = (options: AuthControllerOptions): MethodDecorator & ClassDec
   };
 };
 
+export const AuthUser = createParamDecorator(
+  (data: string, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    const user = request.user;
 
+    return data ? user?.[data] : user;
+  },
+);
+
+export const UseRefreshToken = () => SetMetadata(REFRESH_TOKEN_KEY, true);
+
+export const Refresh = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    return request.newAccessToken;
+  },
+);
 export const InjectAuthService = () => Inject(AUTH_SERVICE);
